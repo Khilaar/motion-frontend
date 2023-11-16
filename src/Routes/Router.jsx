@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 /*Routes import*/
-import Home from './LoginRoute/LoginRoute';
+import Login from './LoginRoute/LoginRoute';
 import NotFound from './NotFoundRoute/NotFound';
 import Layout from './LayoutRoute/LayoutRoute';
 
@@ -11,7 +11,7 @@ const Router = () => {
             <BrowserRouter>
                 <Routes>
                     <Route element={<Layout />} >
-                        <Route path="/" element={<Home/>} />
+                        <Route path="/" element={<Login/>} />
                         <Route path='*' element={<NotFound/>}/>
                     </Route>
                 </Routes>
