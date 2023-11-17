@@ -1,3 +1,4 @@
+import { api } from "../../API/api";
 import CounterTest from "../../Components/CounterTest/CounterTest";
 import { useState } from "react";
 
@@ -10,6 +11,16 @@ const Login = () => {
         e.preventDefault()
         console.log("email", email)
         console.log("password", password)
+
+        try {
+            const res = await api.post("/auth/token/", {email, password})
+            localStorage.setItem("accessToken", res.data.access)
+            
+            console.log(res)
+
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 
