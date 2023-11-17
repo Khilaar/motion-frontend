@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Login from './LoginRoute/LoginRoute';
 import NotFound from './NotFoundRoute/NotFound';
 import Layout from './LayoutRoute/LayoutRoute';
+import Posts from './PostsRoute/PostsRoute';
 
 const Router = () => {
     return (
@@ -12,7 +13,8 @@ const Router = () => {
                 <Routes>
                     <Route element={<Layout />} >
                         <Route path="/" element={<Login/>} />
-                        <Route path='*' element={<NotFound/>}/>
+                        <Route path="*" element={<NotFound/>}/>
+                        <Route path="/posts" element={<Posts/>}></Route>
                     </Route>
                 </Routes>
             </BrowserRouter>
