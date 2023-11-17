@@ -10,12 +10,11 @@ const Login = () => {
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault()
-        console.log("email", email)
-        console.log("password", password)
 
         try {
             const res = await api.post("/auth/token/", {email, password})
             localStorage.setItem("accessToken", res.data.access)
+            setLoginError("")
 
         } catch (error) {
 
