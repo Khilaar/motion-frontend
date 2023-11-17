@@ -6,6 +6,7 @@ const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [loginError, setLoginError] = useState("")
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault()
@@ -15,11 +16,16 @@ const Login = () => {
         try {
             const res = await api.post("/auth/token/", {email, password})
             localStorage.setItem("accessToken", res.data.access)
-            
-            console.log(res)
 
         } catch (error) {
-            console.log(error)
+
+            if (error.response?.data?.detail) {
+                setLoginError(error.response.data.detail)
+
+            } else {
+                setLoginError("Login Failed")
+                console.log(error)
+            }
         }
     }
 
@@ -32,17 +38,20 @@ const Login = () => {
 
                 <input name="email" 
                 type="email" 
-                placeholder="Email" 
+                placeholder="Email"
+                required 
                 value={email} 
                 onChange={(e) => setEmail(e.target.value)}/>
 
                 <input name="password" 
                 type="password" 
-                placeholder="Password" 
+                placeholder="Password"
+                required  
                 value={password} 
                 onChange={(e) => setPassword(e.target.value)}/>
 
                 <button type="submit">Log in</button>
+                <p>{loginError}</p>
             </form>
         </div>
     );
