@@ -1,12 +1,17 @@
+import { useNavigate } from "react-router-dom";
 import { api } from "../../API/api";
 import CounterTest from "../../Components/CounterTest/CounterTest";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { loadUser, login } from "../../Store/Slices/userSlice";
 
 const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loginError, setLoginError] = useState("")
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault()
@@ -14,7 +19,10 @@ const Login = () => {
         try {
             const res = await api.post("/auth/token/", {email, password})
             localStorage.setItem("accessToken", res.data.access)
+            dispatch(login(res.data.access))
+            dispatch(loadUser(res.data.user))
             setLoginError("")
+            navigate("/posts")
 
         } catch (error) {
 

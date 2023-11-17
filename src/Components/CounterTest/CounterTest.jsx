@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { StyledButton } from "../../Styles/ButtonStyles";
-import { addToCountByOne } from "../../Store/Slices/TestSlice/counterSlice";
+import { addToCountByOne } from "../../Store/Slices/counterSlice";
 
 
 
