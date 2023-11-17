@@ -13,22 +13,30 @@ const Login = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    //Function for when the user clicks on the login button
     const handleLoginSubmit = async (e) => {
+        //Need to prevent default so it does not delete our inputs
         e.preventDefault()
 
         try {
+            //Post call for getting a token
             const res = await api.post("/auth/token/", {email, password})
+            //Save the access Token to localStorage
             localStorage.setItem("accessToken", res.data.access)
+            //Store the access Token to redux
             dispatch(login(res.data.access))
+            //Store the user details to redux
             dispatch(loadUser(res.data.user))
+            //Maybe this is the second login-try thats why we set the login error back to an empty string, so the error message will dissapear from ui
             setLoginError("")
+            //When the login is successfull directly go to the post route
             navigate("/posts")
 
         } catch (error) {
-
+            //If there is a specific login error
             if (error.response?.data?.detail) {
                 setLoginError(error.response.data.detail)
-
+            //If we dont know exactly why the login did not work
             } else {
                 setLoginError("Login Failed")
                 console.log(error)
@@ -58,6 +66,7 @@ const Login = () => {
                 onChange={(e) => setPassword(e.target.value)}/>
 
                 <button type="submit">Log in</button>
+                {/*Display the login error when login failed*/}
                 <p>{loginError}</p>
             </form>
         </div>
