@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { api } from "../../API/api";
-import CounterTest from "../../Components/CounterTest/CounterTest";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { loadUser, login } from "../../Store/Slices/userSlice";
@@ -9,9 +8,18 @@ const Login = () => {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [userName, setUserName] = useState("")
+    const [code, setCode] = useState("")
+    const [passwordRepeat, setPasswortRepeat] = useState("")
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("");
     const [loginError, setLoginError] = useState("")
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+    const [isRegisterClicked, setRegisterClicked] = useState(false);
+    const [isSubmitClicked, setSubmitClicked] = useState(false);
+    const [validateError, setValidateError] = useState("");
 
     //Function for when the user clicks on the login button
     const handleLoginSubmit = async (e) => {
@@ -44,33 +52,156 @@ const Login = () => {
         }
     }
 
+    const handleRegister = () => {
+        setLoginError("");
+        setRegisterClicked(true);
+      }
 
-    return (
+    const handleSumbit = async (e) => {
+        console.log(email);
+          setSubmitClicked(true);
+          e.preventDefault();
+  
+          if (email.length === 0) {
+            setValidateError("Please enter Email")
+            setSubmitClicked(false);
+          }
+          else {
+          try {
+  
+              const res = await api.post("/auth/registration/", {email});
+              console.log(res.data);
+          }
+          catch {
+             setSubmitClicked(false)
+              setValidateError("Email invalid or already taken");
+          }
+          }
+      }
+
+      const handleRegisterSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const res = await api.patch("/auth/registration/validation/" , 
+            {email, username: userName, code, password, password_repeat: passwordRepeat,
+            first_name: firstName, last_name: lastName});
+
+            dispatch(loadUser(res.data));
+
+            console.log(res);
+        }
+        catch {
+            console.log('error');
+        }
+    }
+
+
+      return (
         <div>
-            <h1>Login Page</h1>
-            <CounterTest/>
-            <form onSubmit={(e) => handleLoginSubmit(e)}>
-
-                <input name="email" 
-                type="email" 
-                placeholder="Email"
-                required 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)}/>
-
-                <input name="password" 
-                type="password" 
-                placeholder="Password"
-                required  
-                value={password} 
-                onChange={(e) => setPassword(e.target.value)}/>
-
-                <button type="submit">Log in</button>
-                {/*Display the login error when login failed*/}
-                <p>{loginError}</p>
+          {isSubmitClicked ? (
+            <form onSubmit={(e) => handleRegisterSubmit(e)}>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="eMail"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <input 
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    required
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                  />
+                  <input 
+                    type="text"
+                    name="code"
+                    placeholder="Code"
+                    required
+                    value={code}
+                    onChange={(e) => setCode(e.target.value)}
+                  />
+                  <input 
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <input 
+                    type="password"
+                    name="password_repeat"
+                    placeholder="Password_repeat"
+                    required
+                    value={passwordRepeat}
+                    onChange={(e) => setPasswortRepeat(e.target.value)}
+                  />
+                  <input 
+                    type="text"
+                    name="firstName"
+                    placeholder="firstName"
+                    required
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                  <input 
+                    type="text"
+                    name="lastName"
+                    placeholder="LastName"
+                    required
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                  />
+                  <button type="submit">Submit</button>
             </form>
+          ) : (
+            <form>
+              {isRegisterClicked ? (
+                <>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="eMail"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <button onClick={handleSumbit}>Submit</button>
+                  <p>{validateError}</p>
+                </>
+              ) : (
+                <>
+                <h1>Login Page</h1>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="eMail"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button onClick={(e) => handleLoginSubmit(e)}>Login</button>
+                  <button onClick={handleRegister}>Register</button>
+                </>
+              )}
+            </form>
+          )}
+          <p className="error">{loginError}</p>
         </div>
-    );
-};
+      );
+}
 
 export default Login;
