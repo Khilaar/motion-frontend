@@ -5,13 +5,16 @@ export const StyledMain = styled.main `
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    min-width:57vw;
+    min-width:100%;
     min-height: 80vh;
     background-image: 
     linear-gradient(102deg,rgb(196, 104, 255, 0.52), rgb(110, 145, 246, 0.22)),
     url("src/Components/MotionBackground/assets/images/background_image.png");
-    background-size: contain;
+    background-size: cover;
+    background-repeat: no-repeat;
     color: white;
+    margin-bottom: 2rem;
+    box-sizing: border-box;
 `
 export const StyledImg = styled.img `
     width: 60px;
@@ -26,7 +29,7 @@ export const StyledBtnDiv = styled.div `
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 40%;
+    width: 60%;
 
     & :hover {
         cursor: pointer;
