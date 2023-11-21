@@ -3,16 +3,18 @@ import styled from "styled-components";
 export const StyledMainDiv = styled.div `
     display: flex;
     flex-direction: row;
+    height: 80vh;
+    width: 60vw;
 `
 export const StyledLeftMainDiv = styled.div `
     display: flex;
-    width: 50vw;
+    width: 40vw;
 `
 
 export const StyledRightMainDiv = styled.div `
     display: flex;
     flex-direction: column;
-    width: 50vw;
+    width: 60vw;
     background-color: white;
     color: black;
     justify-content: flex-start;
@@ -68,7 +70,7 @@ export const StyledDiv = styled.div `
 
 export const StyledSignInButton = styled.button `
     background-image: linear-gradient(to right, #9e58a3 0%, #5c5695  51%, #cb6cd4  100%);
-    margin-top: 20%;
+    margin-top: 10%;
     padding: 15px 45px;
     text-transform: uppercase;
     transition: 0.5s;
