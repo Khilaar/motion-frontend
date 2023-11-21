@@ -16,7 +16,6 @@ const PostsRouteHeader = () => {
           <StyledAPostsRoute href="#">Follow</StyledAPostsRoute>
         </StyledSpanPostsRoute>
       </StyledHeaderPostsRoute>
-      <h2>Posts</h2>
     </>
   );
 };
