@@ -9,31 +9,39 @@ import {
 } from "../../Styles/PostsRouteStyles";
 
 import { StyledDivContainerPostsRoute } from "../../Styles/PostsRouteStyles";
+import AddPost from "./AddPost";
+
+const placeholderAvatar = "../src/Assets/pb_placeholder.jpg";
 
 const Post = () => {
   const [postsList, setPostsList] = useState([]);
-  const [loading, setLoading] = useState(true); // Add loading state
+  const [loading, setLoading] = useState(true);
+  const [skip, setSkip] = useState(0);
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const token = localStorage.getItem("accessToken");
-        const res = await api.get("/social/posts", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setPostsList(res.data.results);
-      } catch (error) {
-        console.log("error", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     getPosts();
-  }, []);
+  }, [skip]);
+
+  const getPosts = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const res = await api.get("/social/posts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          skip,
+          limit: 20,
+        },
+      });
+
+      setPostsList((prevPosts) => [...prevPosts, ...res.data.results]);
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
@@ -44,21 +52,24 @@ const Post = () => {
     return formattedDate;
   };
 
-  const postsToDisplay = postsList.slice(5);
-  console.log(postsToDisplay);
+  const handleLoadMore = () => {
+    setSkip((prevSkip) => prevSkip + 20);
+  };
 
   return (
     <>
       <StyledBodyPostsRoute>
-        {loading ? ( // Check if loading is true
+        {loading ? (
           <p>Loading...</p>
         ) : (
           <StyledDivContainerPostsRoute>
-            {postsToDisplay.map((post) => (
-              <StyledDivPostsRoute key={post.id}>
+            <AddPost />
+            {postsList.map((post, index) => (
+              <StyledDivPostsRoute key={`${post.id}-${index}`}>
                 <StyleduserPostDiv>
                   <img
-                    src={post.user.avatar}
+                    src={post.user.avatar || placeholderAvatar}
+                    alt="User Avatar"
                     style={{
                       width: "50px",
                       height: "50px",
@@ -90,6 +101,9 @@ const Post = () => {
                 </StyledlikeSharePostsRoute>
               </StyledDivPostsRoute>
             ))}
+            {postsList.length > 0 && (
+              <button onClick={handleLoadMore}>Load More</button>
+            )}
           </StyledDivContainerPostsRoute>
         )}
       </StyledBodyPostsRoute>
