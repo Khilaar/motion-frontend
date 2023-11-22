@@ -41,28 +41,33 @@ export const StyledBodyPostsRoute = styled.div`
 export const StyledPPostsRoute = styled.p`
   display: flex;
   justify-content: flex-start;
-  padding-left: 3.5rem;
 `;
 
 export const StyledDivContainerPostsRoute = styled.div`
-  margin-top: 300px;
+  margin-top: 400px;
   height: 100vh;
-  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
   position: fixed;
-  width: 100%;
+  width: 80%;
   z-index: 1;
   display: flex;
-  flex-direction: column;
-  gap: 50px;
-  width: 90%;
-  justify-self: center;
-  margin-top: 30rem;
+  flex-wrap: wrap;
+  gap: 0px;
+  justify-content: space-between;
+  padding: 0 2%;
 `;
 
 export const StyledDivPostsRoute = styled.div`
-  width: 50%;
-  margin-bottom: 20px;
+  width: 45%;
   color: white;
+  align-items: flex-start;
 `;
 
 export const StyledDivColumns = styled.div`
@@ -75,15 +80,45 @@ export const StyledDivColumns = styled.div`
 export const StyleduserPostDiv = styled.div`
   display: flex;
   gap: 20px;
-  margin-left: 55px;
+  margin-top: 100px;
 `;
 
 export const StyledlikeSharePostsRoute = styled.div`
   display: flex;
-  justify-content: space-around;
-  gap: 7rem;
+  justify-content: space-between;
+  gap: 3rem;
   div {
     display: flex;
     gap: 2rem;
+  }
+`;
+
+export const StyledDivAddPost = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 45%; 
+
+  img {
+    width: 50px;
+    height: 50px; 
+    border-radius: 50%; 
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+
+  button {
+    padding: 10px 16px; 
+    font-size: 16px;
+    background-color:
+    color: #fff; 
+    border: none;
+    border-radius: 4px; 
+    cursor: pointer;
   }
 `;
