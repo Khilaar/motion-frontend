@@ -17,6 +17,10 @@ export const StyledSpanPostsRoute = styled.header`
   display: flex;
   width: 70%;
   justify-content: flex-end;
+  a {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 export const StyledAPostsRoute = styled.a`
@@ -24,7 +28,8 @@ export const StyledAPostsRoute = styled.a`
   text-decoration: none;
   align-items: center;
   height: 100%;
-  padding-left: 50px;
+  margin-left: 50px;
+  padding-bottom: 20px;
   border-top: none;
   border-left: none;
   border-right: none;
@@ -93,6 +98,11 @@ export const StyledlikeSharePostsRoute = styled.div`
     display: flex;
     gap: 2rem;
   }
+  ,
+  button {
+    height: 40%;
+    align-self: center;
+  }
 `;
 
 export const StyledDivAddPost = styled.div`
@@ -114,6 +124,11 @@ export const StyledDivAddPost = styled.div`
     gap: 50px;
   }
 
+  input {
+    background: none;
+    border: none;
+  }
+
   button {
     padding: 10px 16px; 
     font-size: 16px;
@@ -122,4 +137,26 @@ export const StyledDivAddPost = styled.div`
     border-radius: 4px; 
     cursor: pointer;
   }
+`;
+
+export const StyledModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Ensure the modal is above other elements */
+`;
+
+export const StyledOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 999; /* Ensure the overlay is below the modal */
 `;

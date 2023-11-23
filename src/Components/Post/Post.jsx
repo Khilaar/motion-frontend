@@ -1,4 +1,10 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setPosts,
+  likePost,
+  incrementSkip,
+} from "../../Store/Slices/postsSLice";
 import { api } from "../../API/api";
 import {
   StyledBodyPostsRoute,
@@ -7,16 +13,16 @@ import {
   StyledlikeSharePostsRoute,
   StyledPPostsRoute,
 } from "../../Styles/PostsRouteStyles";
-
 import { StyledDivContainerPostsRoute } from "../../Styles/PostsRouteStyles";
 import AddPost from "./AddPost";
 
 const placeholderAvatar = "../src/Assets/pb_placeholder.jpg";
 
 const Post = () => {
-  const [postsList, setPostsList] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [skip, setSkip] = useState(0);
+  const dispatch = useDispatch();
+  const postsList = useSelector((state) => state.posts.posts);
+  const loading = useSelector((state) => state.posts.loading);
+  const skip = useSelector((state) => state.posts.skip);
 
   useEffect(() => {
     getPosts();
@@ -35,12 +41,36 @@ const Post = () => {
         },
       });
 
-      setPostsList((prevPosts) => [...prevPosts, ...res.data.results]);
+      dispatch(setPosts(res.data.results));
     } catch (error) {
       console.log("error", error);
-    } finally {
-      setLoading(false);
     }
+  };
+
+  const handleLike = async (postId) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      await api.post(`/social/posts/toggle-like/${postId}/`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const updatedPost = await api.get(`/social/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      dispatch(likePost(updatedPost.data));
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
+  const handleLoadMore = () => {
+    incrementSkip((prevSkip) => prevSkip + 20);
+    getPosts();
   };
 
   const formatDate = (dateString) => {
@@ -50,10 +80,6 @@ const Post = () => {
       options
     );
     return formattedDate;
-  };
-
-  const handleLoadMore = () => {
-    setSkip((prevSkip) => prevSkip + 20);
   };
 
   return (
@@ -94,10 +120,10 @@ const Post = () => {
                 )}
                 <StyledlikeSharePostsRoute>
                   <div>
-                    <p>like</p>
-                    <p>share</p>
+                    <button onClick={() => handleLike(post.id)}>like</button>
+                    <button>share</button>
                   </div>
-                  <p>number of likes</p>
+                  <p>Number of likes: {post.amount_of_likes}</p>
                 </StyledlikeSharePostsRoute>
               </StyledDivPostsRoute>
             ))}

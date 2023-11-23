@@ -1,13 +1,67 @@
-import { StyledDivAddPost } from "../../Styles/PostsRouteStyles";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addPost } from "../../Store/Slices/postsSLice";
+import { api } from "../../API/api";
+import {
+  StyledDivAddPost,
+  StyledModal,
+  StyledOverlay,
+} from "../../Styles/PostsRouteStyles";
 
 function AddPost() {
+  const dispatch = useDispatch();
+  const [postContent, setPostContent] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePost = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await api.post(
+        "/social/posts/",
+        { content: postContent },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      dispatch(addPost(response.data));
+      setPostContent("");
+      // Close the modal after posting
+      setIsModalOpen(false);
+    } catch (error) {
+      console.log("Error creating post:", error);
+    }
+  };
+
   return (
     <StyledDivAddPost>
       <div>
         <img src="../src/Assets/pb_placeholder.jpg" alt="" />
-        <input type="text" />
+        <input
+          type="text"
+          placeholder="What's on your mind?"
+          value={postContent}
+          onChange={(e) => setPostContent(e.target.value)}
+          onClick={() => setIsModalOpen(true)} // Open modal on input click
+        />
       </div>
-      <button></button>
+      {isModalOpen && (
+        <>
+          <StyledOverlay onClick={() => setIsModalOpen(false)} />
+          <StyledModal>
+            <textarea
+              rows="10"
+              placeholder="Write your post here..."
+              value={postContent}
+              onChange={(e) => setPostContent(e.target.value)}
+            />
+            <button onClick={handlePost}>Post</button>
+            <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+          </StyledModal>
+        </>
+      )}
     </StyledDivAddPost>
   );
 }
