@@ -10,6 +10,8 @@ export const StyledHeader = styled.header`
   justify-content: space-between;
   align-items: center;
   height: 80px;
+  background-color: white;
+  color: black;
 `;
 
 export const StyledH1Header = styled.header`

@@ -1,34 +1,26 @@
-import { StyledHeader } from "../../Styles/HeaderStyles"
-import { StyledNav } from "../../Styles/HeaderStyles"
-import { StyledAHeader } from "../../Styles/HeaderStyles"
-import { StyledSectionHeader } from "../../Styles/HeaderStyles"
-import { StyledH1Header } from "../../Styles/HeaderStyles"
+import { StyledHeader } from "../../Styles/HeaderStyles";
+import { StyledNav } from "../../Styles/HeaderStyles";
+import { StyledAHeader } from "../../Styles/HeaderStyles";
+import { StyledSectionHeader } from "../../Styles/HeaderStyles";
+import { StyledH1Header } from "../../Styles/HeaderStyles";
 
 const Header = () => {
-    
+  return (
+    <StyledHeader>
+      <StyledH1Header>Title</StyledH1Header>
 
-    return (
-        <StyledHeader>
+      <StyledNav>
+        <StyledAHeader href="#">Posts</StyledAHeader>
+        <StyledAHeader href="#">Find Friends</StyledAHeader>
+      </StyledNav>
 
-            <StyledH1Header>Title</StyledH1Header>
+      <StyledSectionHeader>
+        <a href="#">Notifications</a>
+        <a href="#">Profile</a>
+        <a href="#">Dots</a>
+      </StyledSectionHeader>
+    </StyledHeader>
+  );
+};
 
-            <StyledNav>
-
-                <StyledAHeader href="#">Posts</StyledAHeader>
-                <StyledAHeader href="#">Find Friends</StyledAHeader>
-
-            </StyledNav>
-
-            <StyledSectionHeader>
-
-                <a href="#">Notifictions</a>
-                <a href="#">Profile</a>
-                <a href="#">Dots</a>
-
-            </StyledSectionHeader>
-
-        </StyledHeader>
-    )
-}
-
-export default Header
+export default Header;
