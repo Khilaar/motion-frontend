@@ -28,7 +28,7 @@ function AddPost() {
 
       dispatch(addPost(response.data));
       setPostContent("");
-      // Close the modal after posting
+
       setIsModalOpen(false);
     } catch (error) {
       console.log("Error creating post:", error);
@@ -44,7 +44,7 @@ function AddPost() {
           placeholder="What's on your mind?"
           value={postContent}
           onChange={(e) => setPostContent(e.target.value)}
-          onClick={() => setIsModalOpen(true)} // Open modal on input click
+          onClick={() => setIsModalOpen(true)}
         />
       </div>
       {isModalOpen && (
@@ -53,7 +53,7 @@ function AddPost() {
           <StyledModal>
             <textarea
               rows="10"
-              placeholder="Write your post here..."
+              placeholder="Whats on your mind?..."
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
             />
