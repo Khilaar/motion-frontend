@@ -43,6 +43,8 @@ const Post = () => {
     }
   };
 
+  console.log(postsList);
+
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     const formattedDate = new Date(dateString).toLocaleDateString(
@@ -94,8 +96,8 @@ const Post = () => {
                 )}
                 <StyledlikeSharePostsRoute>
                   <div>
-                    <p>like</p>
-                    <p>share</p>
+                    <button>like</button>
+                    <button>share</button>
                   </div>
                   <p>number of likes</p>
                 </StyledlikeSharePostsRoute>
