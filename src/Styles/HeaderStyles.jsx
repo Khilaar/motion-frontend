@@ -76,3 +76,22 @@ export const StyledImg = styled.img `
 export const StyledP = styled.p`
   margin-left: 10px;
 `
+
+export const PopUpP = styled.div`
+  padding: 5px 20px;
+  display: flex;
+  flex-direction: row;
+`
+
+export const PopUpProfile = styled.div`
+  position: absolute;
+  top: 60%;
+  left: 90%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
+  z-index: 1000;
+`

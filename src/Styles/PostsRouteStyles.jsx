@@ -10,6 +10,7 @@ export const StyledHeaderPostsRoute = styled.header`
   justify-content: space-between;
   align-items: center;
   height: 80px;
+  z-index: 1;
 `;
 
 export const StyledSpanPostsRoute = styled.header`
@@ -27,6 +28,7 @@ export const StyledAPostsRoute = styled.a`
   border-top: none;
   border-left: none;
   border-right: none;
+  z-index: 1;
   &:focus {
     border-bottom: solid 1px;
   }
@@ -115,7 +117,6 @@ export const StyledDivAddPost = styled.div`
   button {
     padding: 10px 16px; 
     font-size: 16px;
-    background-color:
     color: #fff; 
     border: none;
     border-radius: 4px; 
