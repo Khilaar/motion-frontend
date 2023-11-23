@@ -5,7 +5,7 @@ function AddPost() {
     <StyledDivAddPost>
       <div>
         <img src="../src/Assets/pb_placeholder.jpg" alt="" />
-        <input type="text" />
+        <input type="text" placeholder="Whats on your mind?" />
       </div>
       <button></button>
     </StyledDivAddPost>
