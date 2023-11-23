@@ -147,7 +147,7 @@ export const StyledModal = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure the modal is above other elements */
+  z-index: 1000;
 `;
 
 export const StyledOverlay = styled.div`
@@ -157,5 +157,5 @@ export const StyledOverlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999; /* Ensure the overlay is below the modal */
+  z-index: 999;
 `;
