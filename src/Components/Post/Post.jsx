@@ -45,6 +45,37 @@ const Post = () => {
 
   console.log(postsList);
 
+  const handleLike = async (postId) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      // Toggle the like
+      await api.post(`/social/posts/toggle-like/${postId}/`, null, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const updatedPost = await api.get(`/social/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const updatedPostIndex = postsList.findIndex(
+        (post) => post.id === postId
+      );
+
+      setPostsList((prevPosts) => {
+        const newPosts = [...prevPosts];
+        newPosts[updatedPostIndex] = updatedPost.data;
+        return newPosts;
+      });
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "numeric", day: "numeric" };
     const formattedDate = new Date(dateString).toLocaleDateString(
@@ -96,10 +127,10 @@ const Post = () => {
                 )}
                 <StyledlikeSharePostsRoute>
                   <div>
-                    <button>like</button>
+                    <button onClick={() => handleLike(post.id)}>like</button>
                     <button>share</button>
                   </div>
-                  <p>number of likes</p>
+                  <p>Number of likes: {post.amount_of_likes}</p>
                 </StyledlikeSharePostsRoute>
               </StyledDivPostsRoute>
             ))}
