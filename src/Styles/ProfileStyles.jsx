@@ -190,3 +190,9 @@ export const StyledStatsDiv = styled.div`
   border-top: solid 0.5px #a0a3a0;
   border-bottom-left-radius: 6px;
 `;
+
+export const StyledProfileParent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;

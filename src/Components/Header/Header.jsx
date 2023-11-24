@@ -16,7 +16,7 @@ const Header = () => {
 
       <StyledSectionHeader>
         <a href="#">Notifications</a>
-        <a href="#">Profile</a>
+        <a href="/profile">Profile</a>
         <a href="#">Dots</a>
       </StyledSectionHeader>
     </StyledHeader>
