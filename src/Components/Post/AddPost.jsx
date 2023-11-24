@@ -49,6 +49,11 @@ function AddPost() {
     setImagePreview(URL.createObjectURL(file));
   };
 
+  const handleRemoveImage = () => {
+    setImageFile(null);
+    setImagePreview(null);
+  };
+
   return (
     <StyledDivAddPost>
       <div>
@@ -66,11 +71,14 @@ function AddPost() {
           <StyledOverlay onClick={() => setIsModalOpen(false)} />
           <StyledModal>
             {imagePreview && (
-              <img
-                src={imagePreview}
-                alt="Preview"
-                style={{ maxWidth: "100%", maxHeight: "200px" }}
-              />
+              <>
+                <img
+                  src={imagePreview}
+                  alt="Preview"
+                  style={{ maxWidth: "100%", maxHeight: "200px" }}
+                />
+                <button onClick={handleRemoveImage}>Remove Image</button>
+              </>
             )}
             <textarea
               rows="10"
