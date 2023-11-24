@@ -100,6 +100,9 @@ export const StyledlikeSharePostsRoute = styled.div`
   button {
     height: 40%;
     align-self: center;
+    background: none;
+    border: none;
+    color: white;
   }
 `;
 

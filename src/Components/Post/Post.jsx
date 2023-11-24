@@ -123,7 +123,7 @@ const Post = () => {
                     <button onClick={() => handleLike(post.id)}>like</button>
                     <button>share</button>
                   </div>
-                  <p>Number of likes: {post.amount_of_likes}</p>
+                  <p>likes: {post.amount_of_likes}</p>
                 </StyledlikeSharePostsRoute>
               </StyledDivPostsRoute>
             ))}
