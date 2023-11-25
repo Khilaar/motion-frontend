@@ -90,12 +90,16 @@ export const StyledDivPostsRoute = styled.div`
   justify-content: space-between;
   width: 45%;
   color: #333;
-  align-items: flex-start;
+  img {
+    align-self: center;
+  }
+
   background-color: #fff;
   padding: 16px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 5px;
+  text-align: left;
 `;
 
 export const StyledDivColumns = styled.div`
