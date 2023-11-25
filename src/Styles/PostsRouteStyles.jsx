@@ -10,6 +10,15 @@ export const StyledHeaderPostsRoute = styled.header`
   justify-content: space-between;
   align-items: center;
   height: 80px;
+  input {
+    border: none;
+  }
+`;
+
+export const StyledSearchField = styled.div`
+  margin-left: 50px;
+  display: flex;
+  gap: 10px;
 `;
 
 export const StyledSpanPostsRoute = styled.header`
