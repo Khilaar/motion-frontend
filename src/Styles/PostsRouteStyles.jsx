@@ -52,8 +52,9 @@ export const StyledPPostsRoute = styled.p`
 `;
 
 export const StyledDivContainerPostsRoute = styled.div`
-  margin-top: 400px;
-  height: 100vh;
+  margin-top: 100px;
+  padding-top: 400px;
+  height: calc(100vh - 250px);
   overflow-y: auto;
   scrollbar-color: transparent transparent;
   -ms-overflow-style: none;
