@@ -1,35 +1,30 @@
 import { useState } from "react"
-import { PopUpP, PopUpProfile, StyledHeader, StyledImg, StyledP, StyledRighContainer, StyledleftContainer } from "../../Styles/HeaderStyles"
+import { StyledAHeaderRight, StyledATag, StyledHeader, StyledImg, StyledP, StyledRighContainer, StyledleftContainer, ThreeDotsSpan } from "../../Styles/HeaderStyles"
 import { StyledNav } from "../../Styles/HeaderStyles"
 import { StyledAHeader } from "../../Styles/HeaderStyles"
 import { StyledSectionHeader } from "../../Styles/HeaderStyles"
 import { StyledH1Header } from "../../Styles/HeaderStyles"
-import { api } from "../../API/api"
+import { logout } from "../../Store/Slices/userSlice"
+import { useDispatch } from "react-redux"
+
 
 const Header = () => {
     const [isPopupVisible, setPopupVisible] = useState(false);
+    const [isNotificationsVisible, setNotificationsVisible] = useState(false);
+    const dispatch = useDispatch();
 
+    const handleNotificationsClick = () => {
+        setNotificationsVisible(!isNotificationsVisible);
+    }
 
     const handleHeaderClick = () => {
+        console.log('handleHeaderClick');
         setPopupVisible(!isPopupVisible);
     };
 
-    const receivedRequest = async () => {
-        try {
-            const token = localStorage.getItem("accessToken");
-            const res = await api.get("/social/friends/requests", {
-              headers: {
-                Authorization: `Bearer ${token}`,
-              }
-            });
-      
-            console.log(`Friends request:`);
-            console.log(res.data.results);
-            console.log(res);
-          }
-        catch (error) {
-            console.log(error);
-        }
+    const handleLogout = () => {
+        localStorage.removeItem("accessToken");
+        dispatch(logout());
     }
 
 
@@ -44,7 +39,7 @@ const Header = () => {
                         <StyledImg src="src/Components/MotionBackground/assets/images/posts_logo.png" />
                         <StyledP>Posts</StyledP>
                     </StyledAHeader>
-                    <StyledAHeader noPadding href="/friends">
+                    <StyledAHeader  href="/friends">
                         <StyledImg src="src/Components/MotionBackground/assets/svgs/icon-friends.svg" />
                         <StyledP>Find Friends</StyledP>
                     </StyledAHeader>
@@ -53,28 +48,21 @@ const Header = () => {
 
             <StyledRighContainer>
                 <StyledSectionHeader>
-                    <StyledAHeader noPadding href="#">
+                    <StyledAHeaderRight href="/notifications" onClick={handleNotificationsClick}>
                         <StyledImg src="src/Components/MotionBackground/assets/svgs/notification_bell.svg" />
-                    </StyledAHeader>
-                    <StyledAHeader noPadding href="#" onClick={handleHeaderClick}>
+                    </StyledAHeaderRight>
+                    <StyledAHeaderRight  href="/profile">
                         <StyledImg src="src/Components/MotionBackground/assets/svgs/avatar.svg" />
-                    </StyledAHeader>
-                    <StyledAHeader noPadding href="#">
+                    </StyledAHeaderRight>
+                    <StyledAHeaderRight  href="#" onClick={handleHeaderClick}>
                         <StyledImg src="src/Components/MotionBackground/assets/svgs/menu.svg" />
-                    </StyledAHeader>
-                    {isPopupVisible && (
-                            <PopUpProfile>
-                                <PopUpP>
-                                    <StyledImg src="src/Components/MotionBackground/assets/svgs/avatar.svg"></StyledImg>
-                                    <StyledP>Profile</StyledP>
-                                </PopUpP>
-                                <PopUpP>
-                                    <StyledImg src="src/Components/MotionBackground/assets/svgs/avatar.svg"></StyledImg>
-                                    <StyledP>Logout</StyledP>
-                                </PopUpP>
-                            </PopUpProfile>
+                        {isNotificationsVisible && (
+                        <span>
+                            <StyledATag href="/profile">Profile</StyledATag>
+                            <StyledATag onClick={handleLogout} href="/">Logout</StyledATag>
+                        </span>
                         )}
-                        <button onClick={receivedRequest}>Click me</button>
+                    </StyledAHeaderRight>
                 </StyledSectionHeader>
             </StyledRighContainer>
         </StyledHeader>

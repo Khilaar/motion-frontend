@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const StyledHeader = styled.header`
   display: flex;
@@ -36,16 +36,31 @@ export const StyledAHeader = styled.a`
   border-right: none;
   text-decoration: none;
   color: inherit;
-  ${props => props.noPadding && css`
-    margin-left: 20px;
-    margin-right: 2px;
-  `}
-
   &:focus {
     border-bottom: solid 1px;
     padding-bottom: 5px
   }
 `;
+
+export const StyledAHeaderRight = styled.a`
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: 50px;
+  margin-right: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  text-decoration: none;
+  color: inherit;
+  margin-left: 20px;
+  margin-right: 2px;
+  &:focus {
+    border-bottom: solid 1px;
+    padding-bottom: 5px
+  }
+`;
+
 export const StyledSectionHeader = styled.section`
   display: flex;
   justify-content: space-between;
@@ -94,4 +109,20 @@ export const PopUpProfile = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: ${({ isVisible }) => (isVisible ? 'block' : 'none')};
   z-index: 1000;
+`
+
+export const NotificationsSpan = styled.span`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+
+export const ThreeDotsSpan = styled.span`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`
+
+export const StyledATag = styled.a`
+  
 `
