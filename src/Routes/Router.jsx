@@ -18,6 +18,7 @@ const Router = () => {
           <Route path="/" element={<Login />} />
           <Route element={<Layout />}>
             <Route path="*" element={<NotFound />} />
+            <Route path="/profile" element={<Profile />} />
             {/* move profile to protected after completing testing */}
 
             <Route path="" element={<ProtectedRoutes />}>

@@ -3,7 +3,6 @@ import { StyledNav } from "../../Styles/HeaderStyles";
 import { StyledAHeader } from "../../Styles/HeaderStyles";
 import { StyledSectionHeader } from "../../Styles/HeaderStyles";
 import { StyledH1Header } from "../../Styles/HeaderStyles";
-import MenuIcon from "../SVGComponents/MenuIcon";
 
 const Header = () => {
   return (
