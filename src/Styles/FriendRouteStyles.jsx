@@ -8,6 +8,7 @@ export const FriendCard = styled.div`
   padding: 1rem;
   img {
     width: 50px;
+    border-radius: 50px;
   }
   div {
     display: flex;
@@ -27,4 +28,12 @@ export const FriendContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 5rem 1rem 1rem;
+  height: 100vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
 `;

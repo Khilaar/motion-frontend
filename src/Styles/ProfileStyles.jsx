@@ -1,32 +1,57 @@
 import styled from "styled-components";
+import banner from "../Components/MotionBackground/assets/images/my_profile_banner.png";
 
-export const ProfileHeader = styled.header`
+export const ProfileHeader = styled.div`
   position: fixed;
   top: 0;
+<<<<<<< HEAD
   z-index: 2;
   width: 100vw;
   height: 300px;
+=======
+  left: 0;
+  right: 0;
+  z-index: -2;
+  width: 100%;
+  height: 450px;
+  background-image: url(${banner});
+  background-size: 100%;
+  background-repeat: no-repeat;
+>>>>>>> 01b65a32f9e23c82c6b44465f9aa3f10b35f38f7
 `;
 
 export const StyledDivProfileContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  width: 1152px;
-  height: 400px;
+  position: fixed;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: 25%;
+  width: 80%;
+  min-height: fit-content;
+  max-height: 500px;
   background-color: white;
+  border-radius: 6px;
+  display: grid;
 `;
 
 export const StyledProfileDiv = styled.div`
+  background-color: red;
   display: flex;
   flex-direction: column;
+  min-height: 100%;
   height: 100%;
-  width: 400px;
+  width: 30%;
+  z-index: 2;
   justify-content: center;
   align-items: center;
   background-color: white;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-right: solid 0.5px #a0a3a0;
+  overflow: auto;
 
   img {
-    width: 50px;
+    padding-top: 10%;
+    width: 60px;
     height: 50px;
   }
 
@@ -55,51 +80,62 @@ export const StyledProfileDiv = styled.div`
     height: 40px;
     opacity: 80%;
     border: 1px rgba(0, 0, 0, 1);
-    shadow: rgba(0, 0, 0, 0.07);
     text-transform: uppercase;
     border-radius: 16px;
     font-weight: 400;
     font-family: Robot;
-    align: center;
     font-size: 14px;
+    margin-top: 10px;
   }
 `;
 
 export const StyledProfileAboutDiv = styled.div`
+  position: fixed;
+  top: 0;
+  left: 30%;
   display: flex;
   flex-direction: column;
-  margin: 30px;
-
-  h6 {
-    font-family: roboto;
-    font-weight: 400;
-    font-size: 14px;
-    margin-bottom: 0;
-    color: black;
-  }
-
-  p {
-    width: 320px;
-    height: 78px;
-    text-align: left;
-    color: black;
-  }
-`;
-
-export const StyledThingsILikeDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 30px;
-  width: 320px;
-  height: 118px;
+  padding-left: 30px;
+  background-color: white;
+  width: 30%;
+  height: 70%;
+  box-sizing: content;
 
   h6 {
     display: block;
     width: 100%;
     font-family: roboto;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 20px;
+    text-align: left;
+    color: black;
+    margin-bottom: 0;
+  }
+
+  p {
+    width: 100%;
+    text-align: left;
+    color: black;
+    font-size: 1em;
+  }
+`;
+
+export const StyledThingsILikeDiv = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 35%;
+  background-color: white;
+
+  h6 {
+    display: block;
+    width: 100%;
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 20px;
     text-align: left;
     color: black;
   }
@@ -116,4 +152,53 @@ export const StyledButtonThingsILike = styled.button`
   border-radius: 12px;
   border: 1px rgba(0, 0, 0, 1);
   margin: 5px;
+`;
+
+export const StyledContactDetails = styled.p`
+  display: flex;
+  flex-direction: row;
+  color: black;
+  line-height: 2em;
+`;
+
+export const StyledStats = styled.p`
+  display: flex;
+  flex-direction: column;
+  color: black;
+  min-width: 80px;
+  text-transform: Capitalize;
+  font-family: roboto;
+  weight: 400;
+  font-size: 16px;
+  gap: 0;
+  margin-top: 0;
+  padding-top: 0;
+
+  h3 {
+    font-family: roboto;
+    weight: 400;
+    font-size: 20px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+`;
+
+export const StyledStatsDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  justify-content: space-around;
+  justify-self: end;
+  max-width: 70%;
+  min-width: 70%;
+  height: 100px;
+  border-left: solid 1px #a0a3a0;
+  border-top: solid 0.5px #a0a3a0;
+  border-bottom-left-radius: 6px;
+`;
+
+export const StyledProfileParent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;

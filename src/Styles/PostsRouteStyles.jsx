@@ -20,6 +20,7 @@ export const StyledSpanPostsRoute = styled.header`
   a {
     display: flex;
     justify-content: center;
+    color: #333;
   }
 `;
 
@@ -43,6 +44,8 @@ export const StyledBodyPostsRoute = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
+  color: #333;
 `;
 
 export const StyledPPostsRoute = styled.p`
@@ -54,7 +57,6 @@ export const StyledDivContainerPostsRoute = styled.div`
   margin-top: 400px;
   height: 100vh;
   overflow-y: auto;
-  scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
@@ -66,15 +68,26 @@ export const StyledDivContainerPostsRoute = styled.div`
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 0px;
-  justify-content: space-between;
+  gap: 16px;
   padding: 0 2%;
 `;
 
+export const StyledSendIcon = styled.img`
+  transform: rotate(90deg);
+`;
+
 export const StyledDivPostsRoute = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 45%;
-  color: white;
+  color: #333;
   align-items: flex-start;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
 `;
 
 export const StyledDivColumns = styled.div`
@@ -86,22 +99,45 @@ export const StyledDivColumns = styled.div`
 
 export const StyleduserPostDiv = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 20px;
-  margin-top: 100px;
+  width: 100%;
+  margin-top: 10px;
+`;
+
+export const StyledProfileAndUserPostDiv = styled.div`
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  margin-top: 10px;
 `;
 
 export const StyledlikeSharePostsRoute = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 3rem;
   div {
     display: flex;
     gap: 2rem;
   }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 01b65a32f9e23c82c6b44465f9aa3f10b35f38f7
   button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     height: 40%;
     align-self: center;
+    background: none;
+    border: none;
+    color: #333;
+
+    &:active {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
   }
 `;
 
@@ -110,12 +146,12 @@ export const StyledDivAddPost = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  width: 45%; 
+  width: 46%;
 
   img {
     width: 50px;
-    height: 50px; 
-    border-radius: 50%; 
+    height: 50px;
+    border-radius: 50%;
   }
 
   div {
@@ -127,6 +163,7 @@ export const StyledDivAddPost = styled.div`
   input {
     background: none;
     border: none;
+<<<<<<< HEAD
   }
 
   button {
@@ -136,6 +173,9 @@ export const StyledDivAddPost = styled.div`
     border: none;
     border-radius: 4px; 
     cursor: pointer;
+=======
+    padding-right: 15%;
+>>>>>>> 01b65a32f9e23c82c6b44465f9aa3f10b35f38f7
   }
 `;
 
@@ -148,7 +188,7 @@ export const StyledModal = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensure the modal is above other elements */
+  z-index: 1000;
 `;
 
 export const StyledOverlay = styled.div`
@@ -158,5 +198,5 @@ export const StyledOverlay = styled.div`
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 999; /* Ensure the overlay is below the modal */
+  z-index: 999;
 `;

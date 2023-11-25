@@ -12,9 +12,13 @@ import {
   StyleduserPostDiv,
   StyledlikeSharePostsRoute,
   StyledPPostsRoute,
+  StyledProfileAndUserPostDiv,
 } from "../../Styles/PostsRouteStyles";
 import { StyledDivContainerPostsRoute } from "../../Styles/PostsRouteStyles";
 import AddPost from "./AddPost";
+import LikeIcon from "../SVGComponents/LikeIcon";
+import ShareIcon from "../SVGComponents/ShareIcon";
+import MenuIcon from "../SVGComponents/MenuIcon";
 
 const placeholderAvatar = "../src/Assets/pb_placeholder.jpg";
 
@@ -69,6 +73,35 @@ const Post = () => {
     }
   };
 
+  const handleShare = async (postId) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const originalPost = await api.get(`/social/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // eslint-disable-next-line no-unused-vars
+      const response = await api.post(
+        "/social/posts/",
+        {
+          content: `content: ${originalPost.data.content} shared from: ${originalPost.data.user.first_name} ${originalPost.data.user.last_name}`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(originalPost.data);
+    } catch (error) {
+      console.log("Error sharing post:", error);
+    }
+  };
+
   const handleLoadMore = () => {
     incrementSkip((prevSkip) => prevSkip + 20);
     getPosts();
@@ -94,21 +127,24 @@ const Post = () => {
             {postsList.map((post, index) => (
               <StyledDivPostsRoute key={`${post.id}-${index}`}>
                 <StyleduserPostDiv>
-                  <img
-                    src={post.user.avatar || placeholderAvatar}
-                    alt="User Avatar"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                  <span>
-                    <div>
-                      {post.user.first_name} {post.user.last_name}
-                    </div>
-                    <div>{formatDate(post.created)}</div>
-                  </span>
+                  <StyledProfileAndUserPostDiv>
+                    <img
+                      src={post.user.avatar || placeholderAvatar}
+                      alt="User Avatar"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                    <span>
+                      <div>
+                        {post.user.first_name} {post.user.last_name}
+                      </div>
+                      <div>{formatDate(post.created)}</div>
+                    </span>
+                  </StyledProfileAndUserPostDiv>
+                  <MenuIcon></MenuIcon>
                 </StyleduserPostDiv>
 
                 <StyledPPostsRoute>{post.content}</StyledPPostsRoute>
@@ -121,10 +157,18 @@ const Post = () => {
                 )}
                 <StyledlikeSharePostsRoute>
                   <div>
-                    <button onClick={() => handleLike(post.id)}>like</button>
-                    <button>share</button>
+                    <button onClick={() => handleLike(post.id)}>
+                      {" "}
+                      <LikeIcon />
+                      like
+                    </button>
+                    <button onClick={() => handleShare(post.id)}>
+                      {" "}
+                      <ShareIcon />
+                      share
+                    </button>
                   </div>
-                  <p>Number of likes: {post.amount_of_likes}</p>
+                  <p>{post.amount_of_likes} likes</p>
                 </StyledlikeSharePostsRoute>
               </StyledDivPostsRoute>
             ))}
