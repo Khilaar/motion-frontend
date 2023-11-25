@@ -24,6 +24,11 @@ export const StyledAvatar = styled.img`
 `;
 
 export const StyledSaveButton = styled.button`
+  display: block;
+  text-align: center;
+  line-height: 14.06px;
+  margin: 0 auto;
+  margin-top: 10px;
   width: 150px;
   height: 30px;
   font-family: roboto;
@@ -35,7 +40,6 @@ export const StyledSaveButton = styled.button`
   opacity: 80%;
   border-radius: 24px;
   border-style: none;
-  margin-top: 20px;
 `;
 
 export const StyledForm = styled.form`

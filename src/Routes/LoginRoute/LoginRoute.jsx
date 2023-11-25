@@ -209,7 +209,7 @@ const Login = () => {
                         <StyledInput
                           type="email"
                           name="email"
-                          placeholder="eMail"
+                          placeholder="email"
                           required
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
