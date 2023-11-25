@@ -75,6 +75,9 @@ export const StyledSendIcon = styled.img`
 `;
 
 export const StyledDivPostsRoute = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 45%;
   color: #333;
   align-items: flex-start;
@@ -94,11 +97,17 @@ export const StyledDivColumns = styled.div`
 
 export const StyleduserPostDiv = styled.div`
   display: flex;
+  justify-content: space-between;
   gap: 20px;
+  width: 100%;
   margin-top: 10px;
-  span {
-    margin-right: 57%;
-  }
+`;
+
+export const StyledProfileAndUserPostDiv = styled.div`
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  margin-top: 10px;
 `;
 
 export const StyledlikeSharePostsRoute = styled.div`

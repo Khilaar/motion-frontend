@@ -12,6 +12,7 @@ import {
   StyleduserPostDiv,
   StyledlikeSharePostsRoute,
   StyledPPostsRoute,
+  StyledProfileAndUserPostDiv,
 } from "../../Styles/PostsRouteStyles";
 import { StyledDivContainerPostsRoute } from "../../Styles/PostsRouteStyles";
 import AddPost from "./AddPost";
@@ -96,21 +97,23 @@ const Post = () => {
             {postsList.map((post, index) => (
               <StyledDivPostsRoute key={`${post.id}-${index}`}>
                 <StyleduserPostDiv>
-                  <img
-                    src={post.user.avatar || placeholderAvatar}
-                    alt="User Avatar"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                  <span>
-                    <div>
-                      {post.user.first_name} {post.user.last_name}
-                    </div>
-                    <div>{formatDate(post.created)}</div>
-                  </span>
+                  <StyledProfileAndUserPostDiv>
+                    <img
+                      src={post.user.avatar || placeholderAvatar}
+                      alt="User Avatar"
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                    <span>
+                      <div>
+                        {post.user.first_name} {post.user.last_name}
+                      </div>
+                      <div>{formatDate(post.created)}</div>
+                    </span>
+                  </StyledProfileAndUserPostDiv>
                   <MenuIcon></MenuIcon>
                 </StyleduserPostDiv>
 
