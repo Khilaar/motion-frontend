@@ -148,16 +148,7 @@ export const StyledDivAddPost = styled.div`
   input {
     background: none;
     border: none;
-  }
-
-  button {
-    padding: 10px 16px;
-    font-size: 16px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    padding-right: 15%;
   }
 `;
 
