@@ -41,7 +41,6 @@ const Post = () => {
         params: {
           skip,
           limit: 20,
-          searchTerm: searchTerm,
         },
       });
 
