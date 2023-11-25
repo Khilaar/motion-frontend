@@ -27,10 +27,11 @@ const Post = () => {
   const postsList = useSelector((state) => state.posts.posts);
   const loading = useSelector((state) => state.posts.loading);
   const skip = useSelector((state) => state.posts.skip);
+  const searchTerm = useSelector((state) => state.search.searchTerm);
 
   useEffect(() => {
     getPosts();
-  }, [skip]);
+  }, [skip, searchTerm]);
 
   const getPosts = async () => {
     try {
@@ -41,7 +42,7 @@ const Post = () => {
         },
         params: {
           skip,
-          limit: 20,
+          limit: 50,
         },
       });
 
@@ -50,6 +51,13 @@ const Post = () => {
       console.log("error", error);
     }
   };
+
+  const filteredPosts = postsList.filter(
+    (post) =>
+      post.user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleLike = async (postId) => {
     try {
@@ -123,7 +131,7 @@ const Post = () => {
         ) : (
           <StyledDivContainerPostsRoute>
             <AddPost />
-            {postsList.map((post, index) => (
+            {filteredPosts.map((post, index) => (
               <StyledDivPostsRoute key={`${post.id}-${index}`}>
                 <StyleduserPostDiv>
                   <StyledProfileAndUserPostDiv>
@@ -171,7 +179,7 @@ const Post = () => {
                 </StyledlikeSharePostsRoute>
               </StyledDivPostsRoute>
             ))}
-            {postsList.length > 0 && (
+            {filteredPosts.length > 0 && (
               <button onClick={handleLoadMore}>Load More</button>
             )}
           </StyledDivContainerPostsRoute>
