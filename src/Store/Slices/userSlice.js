@@ -21,8 +21,16 @@ const userSlice = createSlice({
       state.details = action.payload;
       localStorage.setItem("userDetails", JSON.stringify(action.payload));
     },
+
+    // updates the user details when the user edits their information in the form.
+    updateUser: (state, action) => {
+      state.details = {
+        first_name: action.payload,
+        last_name: action.payload,
+      };
+    },
   },
 });
 
-export const { login, logout, loadUser } = userSlice.actions;
+export const { login, logout, loadUser, updateUser } = userSlice.actions;
 export default userSlice.reducer;
