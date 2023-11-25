@@ -29,7 +29,7 @@ export default function ProfileCard(props) {
   const [location, setLocation] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
   const [about_me, setAboutMe] = useState("");
-  const [things_user_likes, setThingsUserLikes] = useState("");
+  const [things_user_likes, setThingsUserLikes] = useState([]);
 
   // get current user details.
   const getUserDetails = async (user_id, auth) => {
