@@ -4,11 +4,6 @@ import banner from "../Components/MotionBackground/assets/images/my_profile_bann
 export const ProfileHeader = styled.div`
   position: fixed;
   top: 0;
-<<<<<<< HEAD
-  z-index: 2;
-  width: 100vw;
-  height: 300px;
-=======
   left: 0;
   right: 0;
   z-index: -2;
@@ -17,7 +12,6 @@ export const ProfileHeader = styled.div`
   background-image: url(${banner});
   background-size: 100%;
   background-repeat: no-repeat;
->>>>>>> 01b65a32f9e23c82c6b44465f9aa3f10b35f38f7
 `;
 
 export const StyledDivProfileContainer = styled.div`
