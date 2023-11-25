@@ -72,6 +72,35 @@ const Post = () => {
     }
   };
 
+  const handleShare = async (postId) => {
+    try {
+      const token = localStorage.getItem("accessToken");
+
+      const originalPost = await api.get(`/social/posts/${postId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // eslint-disable-next-line no-unused-vars
+      const response = await api.post(
+        "/social/posts/",
+        {
+          content: `content: ${originalPost.data.content} shared from: ${originalPost.data.user.first_name} ${originalPost.data.user.last_name}`,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log(originalPost.data);
+    } catch (error) {
+      console.log("Error sharing post:", error);
+    }
+  };
+
   const handleLoadMore = () => {
     incrementSkip((prevSkip) => prevSkip + 20);
     getPosts();
@@ -132,7 +161,8 @@ const Post = () => {
                       <LikeIcon />
                       like
                     </button>
-                    <button>
+                    <button onClick={() => handleShare(post.id)}>
+                      {" "}
                       <ShareIcon />
                       share
                     </button>
