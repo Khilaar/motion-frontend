@@ -92,6 +92,12 @@ export const StyledImg = styled.img `
   
 `
 
+export const StyledImgPopUp = styled.img`
+  width: 20px;
+  height: 20px;
+  padding-right: 10px;
+`
+
 export const StyledP = styled.p`
   margin-left: 10px;
 `
@@ -122,11 +128,23 @@ export const NotificationsSpan = styled.span`
 `
 
 export const ThreeDotsSpan = styled.span`
+  position: absolute;
+  right: 10px;
+  top: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
+  z-index: 1000;
+  background-color: white;
+  padding: 0 20px;
 `
 
 export const StyledATag = styled.a`
-  
+  display: flex;
+  align-self: flex-start;
+  padding-top: 5px;
+  text-decoration: none;
+  color: inherit;
+  margin-top: 5px;
+  margin-bottom: 5px;
 `
