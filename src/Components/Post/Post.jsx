@@ -90,28 +90,43 @@ const Post = () => {
         },
       });
 
-      // eslint-disable-next-line no-unused-vars
-      const response = await api.post(
-        "/social/posts/",
-        {
-          content: `content: ${originalPost.data.content} shared from: ${originalPost.data.user.first_name} ${originalPost.data.user.last_name}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const formData = new FormData();
+      formData.append(
+        "content",
+        `${originalPost.data.content} shared from: ${originalPost.data.user.first_name} ${originalPost.data.user.last_name}`
       );
 
-      console.log(originalPost.data);
+      const response = await api.post("/social/posts/", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(response.data);
     } catch (error) {
-      console.log("Error sharing post:", error);
+      console.error("Error sharing post:", error);
     }
   };
 
-  const handleLoadMore = () => {
-    incrementSkip((prevSkip) => prevSkip + 20);
-    getPosts();
+  const handleLoadMore = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const res = await api.get("/social/posts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          skip: skip,
+          limit: 50,
+        },
+      });
+
+      dispatch(setPosts([...postsList, ...res.data.results]));
+      incrementSkip((prevSkip) => prevSkip + 50);
+    } catch (error) {
+      console.log("Error loading more posts:", error);
+    }
   };
 
   const formatDate = (dateString) => {
