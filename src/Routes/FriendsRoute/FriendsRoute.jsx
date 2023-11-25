@@ -54,7 +54,6 @@ const FindFriends = () => {
         updateobj.logged_in_user_is_friends = false;
         setFriends([
           ...friends.filter((obj) => obj.id.toString() !== userid),
-          ,
           updateobj,
         ]);
       } else {
@@ -70,13 +69,13 @@ const FindFriends = () => {
     }
   };
 
-  console.log(friends);
+  const placeholderAvatar = "../src/Assets/pb_placeholder.jpg";
   return (
     <>
       <FriendContainer>
         {friends.map((obj) => (
           <FriendCard key={obj.id}>
-            <img src={obj.avatar} alt="avatar img" />
+            <img src={obj.avatar || placeholderAvatar} alt="avatar img" />
             <h3>{`${obj.first_name} ${
               obj.last_name || "Placeholder Name"
             }`}</h3>
