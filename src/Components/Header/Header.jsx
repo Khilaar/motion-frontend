@@ -17,8 +17,8 @@ const Header = () => {
 
       <StyledSectionHeader>
         <a href="#">Notifications</a>
-        <a href="#">Profile</a>
-        <MenuIcon></MenuIcon>
+        <a href="/profile">Profile</a>
+        <a href="#">Dots</a>
       </StyledSectionHeader>
     </StyledHeader>
   );
