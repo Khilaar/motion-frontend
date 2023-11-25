@@ -19,6 +19,7 @@ export const StyledSpanPostsRoute = styled.header`
   a {
     display: flex;
     justify-content: center;
+    color: #333;
   }
 `;
 
@@ -41,6 +42,8 @@ export const StyledBodyPostsRoute = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
+  color: #333;
 `;
 
 export const StyledPPostsRoute = styled.p`
@@ -52,7 +55,6 @@ export const StyledDivContainerPostsRoute = styled.div`
   margin-top: 400px;
   height: 100vh;
   overflow-y: auto;
-  scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
@@ -64,15 +66,23 @@ export const StyledDivContainerPostsRoute = styled.div`
   z-index: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 0px;
-  justify-content: space-between;
+  gap: 16px;
   padding: 0 2%;
+`;
+
+export const StyledSendIcon = styled.img`
+  transform: rotate(90deg);
 `;
 
 export const StyledDivPostsRoute = styled.div`
   width: 45%;
-  color: white;
+  color: #333;
   align-items: flex-start;
+  background-color: #fff;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 5px;
 `;
 
 export const StyledDivColumns = styled.div`
@@ -85,7 +95,10 @@ export const StyledDivColumns = styled.div`
 export const StyleduserPostDiv = styled.div`
   display: flex;
   gap: 20px;
-  margin-top: 100px;
+  margin-top: 10px;
+  span {
+    margin-right: 57%;
+  }
 `;
 
 export const StyledlikeSharePostsRoute = styled.div`
@@ -97,16 +110,19 @@ export const StyledlikeSharePostsRoute = styled.div`
     display: flex;
     gap: 2rem;
   }
-  ,
   button {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 5px;
     height: 40%;
     align-self: center;
     background: none;
     border: none;
-    color: white;
+    color: #333;
+
+    &:active {
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
   }
 `;
 
@@ -115,12 +131,12 @@ export const StyledDivAddPost = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  width: 45%; 
+  width: 46%;
 
   img {
     width: 50px;
-    height: 50px; 
-    border-radius: 50%; 
+    height: 50px;
+    border-radius: 50%;
   }
 
   div {
@@ -132,16 +148,7 @@ export const StyledDivAddPost = styled.div`
   input {
     background: none;
     border: none;
-  }
-
-  button {
-    padding: 10px 16px; 
-    font-size: 16px;
-    background-color:
-    color: #fff; 
-    border: none;
-    border-radius: 4px; 
-    cursor: pointer;
+    padding-right: 15%;
   }
 `;
 
