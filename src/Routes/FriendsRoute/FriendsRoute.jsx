@@ -10,12 +10,67 @@ const FindFriends = () => {
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
   useEffect(() => {
-    api.get("users", config).then((data) => {
-      console.log(data.data);
+    api.get("users/?limit=2000&offset=500", config).then((data) => {
       setFriends(data.data.results);
+      console.log(data);
     });
   }, [token]);
 
+  const handleFollow = async (e) => {
+    try {
+      const userid = e.target.parentElement.getAttribute("data-key");
+      const resp = await api.post(
+        `social/followers/toggle-follow/${userid}/`,
+        null,
+        config
+      );
+      setFriends([
+        ...friends.map((obj) => (obj.id === resp.data.id ? resp.data : obj)),
+      ]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFriendRequest = async (e) => {
+    const userid = e.target.parentElement.getAttribute("data-key");
+    const isfriend = e.target.getAttribute("data-isfriend");
+    try {
+      if (isfriend === "true") {
+        const requests = await api.get("social/friends/requests", config);
+        const requestid = requests.data.results.filter(
+          (obj) => obj.receiver.id.toString() === userid
+        )[0].id;
+
+        const resp = await api.delete(
+          `social/friends/requests/${requestid}/`,
+          config
+        );
+
+        const updateobj = friends.filter(
+          (obj) => obj.id.toString() === userid
+        )[0];
+
+        updateobj.logged_in_user_is_friends = false;
+        setFriends([
+          ...friends.filter((obj) => obj.id.toString() !== userid),
+          ,
+          updateobj,
+        ]);
+      } else {
+        const resp = await api.post(
+          `social/friends/request/${userid}/`,
+          null,
+          config
+        );
+        alert("Friend Request Sent");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(friends);
   return (
     <>
       <FriendContainer>
@@ -27,9 +82,19 @@ const FindFriends = () => {
             }`}</h3>
 
             <p>{obj.location || "Placholder Location"}</p>
-            <div className="btn-container">
-              <StyledBtn>FOLLOW</StyledBtn>
-              <StyledBtn>ADD FRIEND</StyledBtn>
+            <div className="btn-container" key={obj.id} data-key={obj.id}>
+              <StyledBtn
+                onClick={(e) => handleFollow(e)}
+                $gradient={obj.logged_in_user_is_following}
+              >
+                {obj.logged_in_user_is_following ? "FOLLOWING" : "FOLLOW"}
+              </StyledBtn>
+              <StyledBtn
+                data-isfriend={obj.logged_in_user_is_friends}
+                onClick={(e) => handleFriendRequest(e)}
+              >
+                {obj.logged_in_user_is_friends ? "✔️ FRIEND" : "ADD FRIEND"}
+              </StyledBtn>
             </div>
             <p className="desc-text">
               {obj.about_me ||
