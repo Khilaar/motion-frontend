@@ -10,8 +10,8 @@ const Header = () => {
       <StyledH1Header>Title</StyledH1Header>
 
       <StyledNav>
-        <StyledAHeader href="#">Posts</StyledAHeader>
-        <StyledAHeader href="#">Find Friends</StyledAHeader>
+        <StyledAHeader href="/posts">Posts</StyledAHeader>
+        <StyledAHeader href="/friends">Find Friends</StyledAHeader>
       </StyledNav>
 
       <StyledSectionHeader>

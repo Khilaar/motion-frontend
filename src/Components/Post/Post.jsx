@@ -15,6 +15,8 @@ import {
 } from "../../Styles/PostsRouteStyles";
 import { StyledDivContainerPostsRoute } from "../../Styles/PostsRouteStyles";
 import AddPost from "./AddPost";
+import LikeIcon from "./LikeIcon";
+import ShareIcon from "./ShareIcon";
 
 const placeholderAvatar = "../src/Assets/pb_placeholder.jpg";
 
@@ -120,8 +122,15 @@ const Post = () => {
                 )}
                 <StyledlikeSharePostsRoute>
                   <div>
-                    <button onClick={() => handleLike(post.id)}>like</button>
-                    <button>share</button>
+                    <button onClick={() => handleLike(post.id)}>
+                      {" "}
+                      <LikeIcon />
+                      like
+                    </button>
+                    <button>
+                      <ShareIcon />
+                      share
+                    </button>
                   </div>
                   <p>likes: {post.amount_of_likes}</p>
                 </StyledlikeSharePostsRoute>
