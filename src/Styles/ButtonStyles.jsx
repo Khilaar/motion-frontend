@@ -9,6 +9,10 @@ export const StyledBtn = styled.button`
   width: 50%;
   padding: 10px;
   text-align: center;
+  background: ${(props) =>
+    props.$gradient
+      ? "linear-gradient(to right, #9e58a3 0%, #5c5695 51%, #cb6cd4 100%)"
+      : "#fff"};
   &:hover {
     cursor: pointer;
   }
