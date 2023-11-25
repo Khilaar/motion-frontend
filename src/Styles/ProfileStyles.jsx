@@ -67,6 +67,7 @@ export const StyledProfileDiv = styled.div`
     color: black;
     width: 118px;
     height: 16px;
+    text-transform: capitalize;
   }
 
   button {
