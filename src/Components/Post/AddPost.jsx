@@ -6,6 +6,7 @@ import {
   StyledDivAddPost,
   StyledModal,
   StyledOverlay,
+  StyledSendIcon,
 } from "../../Styles/PostsRouteStyles";
 
 function AddPost() {
@@ -65,6 +66,7 @@ function AddPost() {
           onChange={(e) => setPostContent(e.target.value)}
           onClick={() => setIsModalOpen(true)}
         />
+        <StyledSendIcon src="..\src\Assets\send_icon.png" alt="" />
       </div>
       {isModalOpen && (
         <>

@@ -15,8 +15,9 @@ import {
 } from "../../Styles/PostsRouteStyles";
 import { StyledDivContainerPostsRoute } from "../../Styles/PostsRouteStyles";
 import AddPost from "./AddPost";
-import LikeIcon from "./LikeIcon";
-import ShareIcon from "./ShareIcon";
+import LikeIcon from "../SVGComponents/LikeIcon";
+import ShareIcon from "../SVGComponents/ShareIcon";
+import MenuIcon from "../SVGComponents/MenuIcon";
 
 const placeholderAvatar = "../src/Assets/pb_placeholder.jpg";
 
@@ -110,6 +111,7 @@ const Post = () => {
                     </div>
                     <div>{formatDate(post.created)}</div>
                   </span>
+                  <MenuIcon></MenuIcon>
                 </StyleduserPostDiv>
 
                 <StyledPPostsRoute>{post.content}</StyledPPostsRoute>
@@ -132,7 +134,7 @@ const Post = () => {
                       share
                     </button>
                   </div>
-                  <p>likes: {post.amount_of_likes}</p>
+                  <p>{post.amount_of_likes} likes</p>
                 </StyledlikeSharePostsRoute>
               </StyledDivPostsRoute>
             ))}
