@@ -34,9 +34,6 @@ const PostsRouteHeader = () => {
           onKeyDown={handleKeyDown}
         />
         <StyledSpanPostsRoute>
-          <StyledAPostsRoute href="#" onClick={handleSearch}>
-            Search
-          </StyledAPostsRoute>
           <StyledAPostsRoute href="#">All</StyledAPostsRoute>
           <StyledAPostsRoute href="#">Liked</StyledAPostsRoute>
           <StyledAPostsRoute href="#">Friends</StyledAPostsRoute>
