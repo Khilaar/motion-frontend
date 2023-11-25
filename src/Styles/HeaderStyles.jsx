@@ -28,6 +28,7 @@ export const StyledNav = styled.nav`
 export const StyledAHeader = styled.a`
   display: flex;
   align-items: center;
+  text-decoration: none;
   height: 100%;
   margin-left: 50px;
   margin-right: 50px;
@@ -39,6 +40,9 @@ export const StyledAHeader = styled.a`
   &:focus {
     border-bottom: solid 1px;
     padding-bottom: 5px
+  }
+  img {
+    height: 20px;
   }
 `;
 

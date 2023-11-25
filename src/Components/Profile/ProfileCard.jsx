@@ -13,44 +13,68 @@ import {
   StyledFormParentDiv,
 } from "../../Styles/ProfileCardStyles";
 import { StyledClearButton } from "../../Styles/ButtonStyles";
-import { loadUser, updateUser } from "../../Store/Slices/userSlice";
+import { useEffect } from "react";
 
 export default function ProfileCard(props) {
+  const local_user_id = JSON.parse(localStorage.getItem("userDetails")).id;
+  const accessToken = useSelector((state) => state.user.accessToken);
+  const config = {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  };
+  // stateful variables for tracking and updating form input changes.
   const userAvatar = useSelector((state) => state.user.details?.avatar);
-  const [first_name, setFirstName] = useState(
-    useSelector((state) => state.user.details?.first_name)
-  );
-  const [last_name, setLastName] = useState(
-    useSelector((state) => state.user.details?.last_name)
-  );
-  const [email, setEmail] = useState(
-    useSelector((state) => state.user.details?.email)
-  );
-  const [location, setLocation] = useState(
-    useSelector((state) => state.user.details?.location)
-  );
-  const [phone_number, setPhoneNumber] = useState(
-    useSelector((state) => state.user.details?.phone_number)
-  );
-  const [about_me, setAboutMe] = useState(
-    useSelector((state) => state.user.details?.about_me)
-  );
-  const [things_user_likes, setThingsUserLikes] = useState(
-    useSelector((state) => state.user.details?.things_user_likes)
-  );
-  const dispatch = useDispatch();
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
+  const [about_me, setAboutMe] = useState("");
+  const [things_user_likes, setThingsUserLikes] = useState([]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // TODO: FIX DISPATCH ACTION OF USER DETAILS UPDATE.
-    //dispatch(updateUser([first_name]: first_name, [last_name]: last_name));
-
-    props.setShowForm(false);
+  // get current user details.
+  const getUserDetails = async (user_id, auth) => {
+    try {
+      const response = await api.get(`users/${user_id}/`, auth);
+      const data = response.data;
+      setEmail(data.email);
+      setFirstName(data.first_name);
+      setLastName(data.last_name);
+      setLocation(data.location);
+      setPhoneNumber(data.phone_number);
+      setAboutMe(data.about_me);
+      setThingsUserLikes(data.things_user_likes);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  console.log(last_name);
-  // TODO: Implement handler for changing user details and dispatching.
+  useEffect(() => {
+    getUserDetails(local_user_id, config);
+  }, [accessToken]);
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await api.patch(
+        "/users/me/",
+        {
+          email: email,
+          first_name: first_name,
+          last_name: last_name,
+          location: location,
+          phone_number: phone_number,
+          about_me: about_me,
+          things_user_likes: things_user_likes,
+        },
+        config
+      );
+      console.log(response.data);
+      console.log(first_name);
+      props.setShowForm(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <StyledFormParentDiv>
@@ -71,10 +95,10 @@ export default function ProfileCard(props) {
           </div>
         </StyledProfileLeftSection>
         <StyledForm onSubmit={handleSubmit}>
-          <StyledSaveButton type="submit">Save Account</StyledSaveButton>
           <StyledLabel>First name:</StyledLabel>
           <StyledInput
             type="text"
+            name={first_name}
             value={first_name}
             placeholder={first_name}
             onChange={(e) => setFirstName(e.target.value)}
@@ -82,6 +106,7 @@ export default function ProfileCard(props) {
           <StyledLabel>Last name:</StyledLabel>
           <StyledInput
             type="text"
+            name={last_name}
             value={last_name}
             placeholder={last_name}
             onChange={(e) => setLastName(e.target.value)}
@@ -89,6 +114,7 @@ export default function ProfileCard(props) {
           <StyledLabel>Email:</StyledLabel>
           <StyledInput
             type="email"
+            name={email}
             value={email}
             placeholder={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -97,6 +123,7 @@ export default function ProfileCard(props) {
           <StyledLabel>Location:</StyledLabel>
           <StyledInput
             type="text"
+            name={location}
             value={location}
             placeholder={location}
             onChange={(e) => setLocation(e.target.value)}
@@ -106,11 +133,14 @@ export default function ProfileCard(props) {
             type="phone"
             value={phone_number}
             placeholder={phone_number}
+            name={phone_number}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
           <StyledLabel>About:</StyledLabel>
           <StyledTextArea
+            name={about_me}
             placeholder={about_me}
+            value={about_me}
             onChange={(e) => setAboutMe(e.target.value)}
           />
           <StyledLabel>Password:</StyledLabel>
@@ -118,9 +148,11 @@ export default function ProfileCard(props) {
           <StyledLabel>Things I like:</StyledLabel>
           <StyledTextArea
             value={things_user_likes}
+            name={things_user_likes}
             placeholder={things_user_likes}
             onChange={(e) => setThingsUserLikes(e.target.value)}
           />
+          <StyledSaveButton type="submit">Save Account</StyledSaveButton>
         </StyledForm>
       </StyledFormParentDiv>
     </>

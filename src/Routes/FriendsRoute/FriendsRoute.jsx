@@ -10,7 +10,7 @@ const FindFriends = () => {
   const config = { headers: { Authorization: `Bearer ${token}` } };
 
   useEffect(() => {
-    api.get("users/?limit=2000&offset=500", config).then((data) => {
+    api.get("users/?limit=10000&offset=500", config).then((data) => {
       setFriends(data.data.results);
       console.log(data);
     });
@@ -75,55 +75,58 @@ const FindFriends = () => {
   return (
     <>
       <FriendContainer>
-        {friends.map((obj) => (
-          <FriendCard key={obj.id}>
-            <img src={obj.avatar || placeholderAvatar} alt="avatar img" />
-            <h3>{`${obj.first_name} ${
-              obj.last_name || "Placeholder Name"
-            }`}</h3>
-
-            <p>{obj.location || "Placholder Location"}</p>
-            <div className="btn-container" key={obj.id} data-key={obj.id}>
-              <StyledBtn
-                onClick={(e) => handleFollow(e)}
-                $gradient={obj.logged_in_user_is_following}
-              >
-                {obj.logged_in_user_is_following ? "FOLLOWING" : "FOLLOW"}
-              </StyledBtn>
-              <StyledBtn
-                data-isfriend={obj.logged_in_user_is_friends}
-                onClick={(e) => handleFriendRequest(e)}
-              >
-                {obj.logged_in_user_is_friends ? "✔️ FRIEND" : "ADD FRIEND"}
-              </StyledBtn>
-            </div>
-            <p className="desc-text">
-              {obj.about_me ||
-                `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
-              quam tempore tempora dolor quas doloribus expedita culpa
-              provident. Perferendis iusto dolores illum excepturi a magnam
-              laudantium aperiam perspiciatis eum facere!`}
-            </p>
-
-            {(obj.things_user_likes.length > 0 && (
-              <div className="hobby-cotainer">
-                {obj.things_user_likes.length > 0 &&
-                  obj.things_user_likes.map((hobby) => (
-                    <span key={hobby} className="hobby">
-                      {hobby}
-                    </span>
-                  ))}
+        {friends
+          .filter((obj) => obj.first_name)
+          .map((obj) => (
+            <FriendCard key={obj.id}>
+              <img src={obj.avatar || placeholderAvatar} alt="avatar img" />
+              <h3>{`${obj.first_name} ${
+                obj.last_name || "Placeholder Name"
+              }`}</h3>
+              <p>{obj.location || "Placholder Location"}</p>
+              <div className="btn-container" key={obj.id} data-key={obj.id}>
+                <StyledBtn
+                  onClick={(e) => handleFollow(e)}
+                  $gradient={obj.logged_in_user_is_following}
+                >
+                  {obj.logged_in_user_is_following ? "FOLLOWING" : "FOLLOW"}
+                </StyledBtn>
+                <StyledBtn
+                  data-isfriend={obj.logged_in_user_is_friends}
+                  onClick={(e) => handleFriendRequest(e)}
+                >
+                  {obj.logged_in_user_is_friends ? "✔️ FRIEND" : "ADD FRIEND"}
+                </StyledBtn>
               </div>
-            )) || (
-              <div className="hobby-cotainer">
-                <span className="hobby">Placeholder</span>
-                <span className="hobby">Placeholder</span>
-                <span className="hobby">Placeholder</span>
-                <span className="hobby">Placeholder</span>
-              </div>
-            )}
-          </FriendCard>
-        ))}
+              <p className="desc-text">
+                {obj.about_me ||
+                  `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum
+                quam tempore tempora dolor quas doloribus expedita culpa
+                provident. Perferendis iusto dolores illum excepturi a magnam
+                laudantium aperiam perspiciatis eum facere!`}
+              </p>
+
+              {obj.things_user_likes.length > 0 && (
+                <div className="hobby-cotainer">
+                  {obj.things_user_likes.length > 0 &&
+                    obj.things_user_likes.map((hobby) => (
+                      <span key={hobby} className="hobby">
+                        {hobby}
+                      </span>
+                    ))}
+                </div>
+              )}
+
+              {!obj.things_user_likes.length && (
+                <div className="hobby-cotainer">
+                  <span className="hobby">Placeholder</span>
+                  <span className="hobby">Placeholder</span>
+                  <span className="hobby">Placeholder</span>
+                  <span className="hobby">Placeholder</span>
+                </div>
+              )}
+            </FriendCard>
+          ))}
       </FriendContainer>
     </>
   );

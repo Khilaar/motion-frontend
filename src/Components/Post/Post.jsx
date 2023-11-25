@@ -27,10 +27,11 @@ const Post = () => {
   const postsList = useSelector((state) => state.posts.posts);
   const loading = useSelector((state) => state.posts.loading);
   const skip = useSelector((state) => state.posts.skip);
+  const searchTerm = useSelector((state) => state.search.searchTerm);
 
   useEffect(() => {
     getPosts();
-  }, [skip]);
+  }, [skip, searchTerm]);
 
   const getPosts = async () => {
     try {
@@ -41,7 +42,7 @@ const Post = () => {
         },
         params: {
           skip,
-          limit: 20,
+          limit: 50,
         },
       });
 
@@ -51,6 +52,13 @@ const Post = () => {
       console.log("error", error);
     }
   };
+
+  const filteredPosts = postsList.filter(
+    (post) =>
+      post.user.first_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.user.last_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.content.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const handleLike = async (postId) => {
     try {
@@ -83,28 +91,43 @@ const Post = () => {
         },
       });
 
-      // eslint-disable-next-line no-unused-vars
-      const response = await api.post(
-        "/social/posts/",
-        {
-          content: `content: ${originalPost.data.content} shared from: ${originalPost.data.user.first_name} ${originalPost.data.user.last_name}`,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
+      const formData = new FormData();
+      formData.append(
+        "content",
+        `${originalPost.data.content} shared from: ${originalPost.data.user.first_name} ${originalPost.data.user.last_name}`
       );
 
-      console.log(originalPost.data);
+      const response = await api.post("/social/posts/", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(response.data);
     } catch (error) {
-      console.log("Error sharing post:", error);
+      console.error("Error sharing post:", error);
     }
   };
 
-  const handleLoadMore = () => {
-    incrementSkip((prevSkip) => prevSkip + 20);
-    getPosts();
+  const handleLoadMore = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const res = await api.get("/social/posts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          skip: skip,
+          limit: 50,
+        },
+      });
+
+      dispatch(setPosts([...postsList, ...res.data.results]));
+      incrementSkip((prevSkip) => prevSkip + 50);
+    } catch (error) {
+      console.log("Error loading more posts:", error);
+    }
   };
 
   const formatDate = (dateString) => {
@@ -124,7 +147,7 @@ const Post = () => {
         ) : (
           <StyledDivContainerPostsRoute>
             <AddPost />
-            {postsList.map((post, index) => (
+            {filteredPosts.map((post, index) => (
               <StyledDivPostsRoute key={`${post.id}-${index}`}>
                 <StyleduserPostDiv>
                   <StyledProfileAndUserPostDiv>
@@ -172,7 +195,7 @@ const Post = () => {
                 </StyledlikeSharePostsRoute>
               </StyledDivPostsRoute>
             ))}
-            {postsList.length > 0 && (
+            {filteredPosts.length > 0 && (
               <button onClick={handleLoadMore}>Load More</button>
             )}
           </StyledDivContainerPostsRoute>
