@@ -42,6 +42,7 @@ const FindFriends = () => {
           (obj) => obj.receiver.id.toString() === userid
         )[0].id;
 
+        // eslint-disable-next-line no-unused-vars
         const resp = await api.delete(
           `social/friends/requests/${requestid}/`,
           config
@@ -57,6 +58,7 @@ const FindFriends = () => {
           updateobj,
         ]);
       } else {
+        // eslint-disable-next-line no-unused-vars
         const resp = await api.post(
           `social/friends/request/${userid}/`,
           null,
