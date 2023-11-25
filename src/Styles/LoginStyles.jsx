@@ -1,31 +1,40 @@
 import styled from "styled-components";
 
 export const StyledMainDiv = styled.div `
+    left: 0;
+    top: 0;
+    position: fixed;
     display: flex;
     flex-direction: row;
-    height: 80vh;
-    width: 60vw;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-self: flex-start;
+    height: 100vh;
+    width: 100vw;
 `
 export const StyledLeftMainDiv = styled.div `
     display: flex;
     width: 40vw;
+    height: 100vh;
 `
 
 export const StyledRightMainDiv = styled.div `
     display: flex;
+    justify-content: center;
     flex-direction: column;
     width: 60vw;
     background-color: white;
     color: black;
     justify-content: flex-start;
-    
 `
 
 export const StyledLoginHeader = styled.header `
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    margin: 20px 20px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    margin-right: 28%;
 `
 export const StyledLoginHeaderButton = styled.button `
     background-color: transparent;

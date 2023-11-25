@@ -6,7 +6,7 @@ export const StyledMain = styled.main `
     justify-content: center;
     align-items: center;
     min-width:100%;
-    min-height: 80vh;
+    min-height: 100vh;
     background-image: 
     linear-gradient(102deg,rgb(196, 104, 255, 0.52), rgb(110, 145, 246, 0.22)),
     url("src/Components/MotionBackground/assets/images/background_image.png");
@@ -29,7 +29,7 @@ export const StyledBtnDiv = styled.div `
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 60%;
+    width: 50%;
 
     & :hover {
         cursor: pointer;

@@ -1,4 +1,3 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 
@@ -26,7 +25,7 @@ function Notification() {
   const handleAccept = async (e) => {
     const requestid = e.target.parentElement.getAttribute("data-key");
     try {
-      const resp = await api.patch(
+      await api.patch(
         `social/friends/requests/${requestid}/`,
         { status: "A" },
         config
@@ -38,7 +37,7 @@ function Notification() {
   const handleReject = async (e) => {
     const requestid = e.target.parentElement.getAttribute("data-key");
     try {
-      const resp = await api.patch(
+      await api.patch(
         `social/friends/requests/${requestid}/`,
         { status: "R" },
         config
