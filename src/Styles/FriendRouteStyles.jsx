@@ -8,6 +8,7 @@ export const FriendCard = styled.div`
   padding: 1rem;
   img {
     width: 50px;
+    border-radius: 50px;
   }
   div {
     display: flex;
