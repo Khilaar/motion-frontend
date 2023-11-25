@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { StyledAHeaderRight, StyledATag, StyledHeader, StyledImg, StyledP, StyledRighContainer, StyledleftContainer, ThreeDotsSpan } from "../../Styles/HeaderStyles"
+import { StyledAHeaderRight, StyledATag, StyledHeader, StyledImg, StyledImgPopUp, StyledP, StyledRighContainer, StyledleftContainer, ThreeDotsSpan } from "../../Styles/HeaderStyles"
 import { StyledNav } from "../../Styles/HeaderStyles"
 import { StyledAHeader } from "../../Styles/HeaderStyles"
 import { StyledSectionHeader } from "../../Styles/HeaderStyles"
@@ -24,6 +24,7 @@ const Header = () => {
 
     const handleLogout = () => {
         localStorage.removeItem("accessToken");
+        localStorage.removeItem("userDetails");
         dispatch(logout());
     }
 
@@ -56,15 +57,21 @@ const Header = () => {
                     </StyledAHeaderRight>
                     <StyledAHeaderRight  href="#" onClick={handleHeaderClick}>
                         <StyledImg src="src/Components/MotionBackground/assets/svgs/menu.svg" />
-                        {isNotificationsVisible && (
-                        <span>
-                            <StyledATag href="/profile">Profile</StyledATag>
-                            <StyledATag onClick={handleLogout} href="/">Logout</StyledATag>
-                        </span>
-                        )}
                     </StyledAHeaderRight>
                 </StyledSectionHeader>
             </StyledRighContainer>
+            {isPopupVisible && (
+            <ThreeDotsSpan>
+                <StyledATag href="/profile">
+                    <StyledImgPopUp src="src/Components/MotionBackground/assets/svgs/profile-major-icon-512x512-xosjbbdq.png" />
+                    Profile
+                    </StyledATag>
+                <StyledATag onClick={handleLogout} href="/">
+                    <StyledImgPopUp src="src/Components/MotionBackground/assets/svgs/1915651.png" />
+                    Logout
+                    </StyledATag>
+            </ThreeDotsSpan>
+            )}
         </StyledHeader>
     )
 }
