@@ -98,7 +98,7 @@ export const StyledlikeSharePostsRoute = styled.div`
     display: flex;
     gap: 2rem;
   }
-  ,
+
   button {
     height: 40%;
     align-self: center;

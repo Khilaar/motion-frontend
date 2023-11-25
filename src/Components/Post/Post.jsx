@@ -42,6 +42,7 @@ const Post = () => {
       });
 
       dispatch(setPosts(res.data.results));
+      console.log(res)
     } catch (error) {
       console.log("error", error);
     }

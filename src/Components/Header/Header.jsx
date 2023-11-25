@@ -4,14 +4,34 @@ import { StyledNav } from "../../Styles/HeaderStyles"
 import { StyledAHeader } from "../../Styles/HeaderStyles"
 import { StyledSectionHeader } from "../../Styles/HeaderStyles"
 import { StyledH1Header } from "../../Styles/HeaderStyles"
-
+import { api } from "../../API/api"
 
 const Header = () => {
     const [isPopupVisible, setPopupVisible] = useState(false);
 
+
     const handleHeaderClick = () => {
         setPopupVisible(!isPopupVisible);
     };
+
+    const receivedRequest = async () => {
+        try {
+            const token = localStorage.getItem("accessToken");
+            const res = await api.get("/social/friends/requests", {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              }
+            });
+      
+            console.log(`Friends request:`);
+            console.log(res.data.results);
+            console.log(res);
+          }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
 
     return (
         <StyledHeader>
@@ -54,6 +74,7 @@ const Header = () => {
                                 </PopUpP>
                             </PopUpProfile>
                         )}
+                        <button onClick={receivedRequest}>Click me</button>
                 </StyledSectionHeader>
             </StyledRighContainer>
         </StyledHeader>

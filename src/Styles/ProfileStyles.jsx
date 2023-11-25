@@ -5,7 +5,7 @@ export const ProfileHeader = styled.header`
   top: 0;
   z-index: 2;
   width: 100vw;
-  height 300px;
+  height: 300px;
 `;
 
 export const StyledDivProfileContainer = styled.div`
