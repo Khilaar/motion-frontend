@@ -91,6 +91,7 @@ export const StyleduserPostDiv = styled.div`
 export const StyledlikeSharePostsRoute = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 3rem;
   div {
     display: flex;
@@ -98,6 +99,9 @@ export const StyledlikeSharePostsRoute = styled.div`
   }
   ,
   button {
+    display: flex;
+    align-items: center;
+    gap: 3px;
     height: 40%;
     align-self: center;
     background: none;
