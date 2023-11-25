@@ -27,4 +27,14 @@ export const FriendContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   margin: 5rem 1rem 1rem;
+  max-height: 100vh;
+  overflow-y: auto;
+
+  scrollbar-color: transparent transparent;
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
 `;
