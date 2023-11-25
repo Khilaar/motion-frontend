@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../../API/api";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import jenniferAvatar from "../../Components/MotionBackground/assets/images/jennifer.png";
 import {
   StyledAvatar,
@@ -11,9 +11,13 @@ import {
   StyledLabel,
   StyledTextArea,
   StyledFormParentDiv,
+  StyledListItem,
 } from "../../Styles/ProfileCardStyles";
 import { StyledClearButton } from "../../Styles/ButtonStyles";
 import { useEffect } from "react";
+import { TrashIcon } from "../SVGComponents/TrashIcon";
+import { UploadIcon } from "../SVGComponents/UploadIcon";
+import { createRef } from "react";
 
 export default function ProfileCard(props) {
   const local_user_id = JSON.parse(localStorage.getItem("userDetails")).id;
@@ -22,7 +26,6 @@ export default function ProfileCard(props) {
     headers: { Authorization: `Bearer ${accessToken}` },
   };
   // stateful variables for tracking and updating form input changes.
-  const userAvatar = useSelector((state) => state.user.details?.avatar);
   const [first_name, setFirstName] = useState("");
   const [last_name, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -30,6 +33,11 @@ export default function ProfileCard(props) {
   const [phone_number, setPhoneNumber] = useState("");
   const [about_me, setAboutMe] = useState("");
   const [things_user_likes, setThingsUserLikes] = useState([]);
+  const [updateImage, showUpdateImage] = useState(false);
+  // reference for uploading image input.
+  const uploadAvatarRef = createRef();
+  const [avatar, setAvatar] = useState("");
+  const userAvatar = URL.createObjectURL(avatar);
 
   // get current user details.
   const getUserDetails = async (user_id, auth) => {
@@ -75,12 +83,42 @@ export default function ProfileCard(props) {
       console.log(error);
     }
   };
+
+  const handleFileInputClick = () => {
+    uploadAvatarRef.current.click();
+  };
   return (
     <>
       <StyledFormParentDiv>
         <StyledProfileLeftSection>
           <StyledAvatar src={userAvatar || jenniferAvatar} alt="user avatar" />
-          <StyledClearButton>Update Image</StyledClearButton>
+          <StyledClearButton onClick={() => showUpdateImage(!updateImage)}>
+            Update Image
+          </StyledClearButton>
+          {updateImage && (
+            <ul>
+              <StyledListItem>
+                <StyledClearButton onClick={handleFileInputClick}>
+                  <UploadIcon />
+                  Upload Image
+                </StyledClearButton>
+                <StyledInput
+                  style={{ display: "none" }}
+                  ref={uploadAvatarRef}
+                  type="file"
+                  onChange={(e) => {
+                    setAvatar(e.target.files[0]);
+                  }}
+                />
+              </StyledListItem>
+              <StyledListItem>
+                <StyledClearButton>
+                  <TrashIcon />
+                  Remove
+                </StyledClearButton>
+              </StyledListItem>
+            </ul>
+          )}
 
           <div
             style={{

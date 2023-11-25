@@ -100,3 +100,11 @@ export const StyledFormParentDiv = styled.div`
   justify-content: center;
   padding: 10px;
 `;
+
+export const StyledListItem = styled.li`
+  list-style-type: none;
+  flex-direction: column;
+  position: relative;
+  margin: 0 auto;
+  margin-bottom: 5px;
+`;
