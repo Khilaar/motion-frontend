@@ -8,6 +8,7 @@ import Posts from "./PostsRoute/PostsRoute";
 import FindFriends from "./FriendsRoute/FriendsRoute";
 import ProtectedRoutes from "./ProtectedRoutes/ProtectedRoutes";
 import Profile from "./ProfileRoutes/Profile";
+import Notification from "./NotificationRoute/NotificationRoute";
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
             <Route path="" element={<ProtectedRoutes />}>
               <Route path="/posts" element={<Posts />}></Route>
               <Route path="/friends" element={<FindFriends />}></Route>/{" "}
+              <Route path="/notifications" element={<Notification />}></Route>
             </Route>
           </Route>
         </Routes>
